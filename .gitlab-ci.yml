@@ -1,0 +1,28 @@
+stages:
+  - test
+  - build
+  - deploy
+
+variables:
+  DATABASE_URL: 'postgres://postgres:postgres@db:5432/ev_charging'
+
+test:
+  image: node:20
+  stage: test
+  script:
+    - npm install
+    - npm run test
+
+build:
+  image: node:20
+  stage: build
+  script:
+    - npm install
+    - npm run build
+
+deploy:
+  stage: deploy
+  script:
+    - echo "Deploying to production..."
+  only:
+    - main
